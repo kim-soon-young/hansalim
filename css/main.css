@@ -36,6 +36,7 @@ body {
   letter-spacing: 0;
   font-weight: 400;
   color: #000;
+  height: 3000px;
 }
 /* 공통요소 */
 .clearfix::after {

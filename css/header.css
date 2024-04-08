@@ -2,7 +2,6 @@
 /* 헤더의 스크롤됐을때  js */
 .header.active {
   top: -61px;
-  
 }
 /* 상단 */
 .header {
@@ -186,7 +185,7 @@
   background-color: #ff9933;
   border-radius: 50%;
 }
-/* 전체메뉴 */
+
 .all-bt {
   position: relative;
   display: block;
@@ -198,11 +197,12 @@
   line-height: 19px;
   cursor: pointer;
 }
+
 .all-bt i {
   display: inline-block;
   margin-right: 12px;
 }
-
+/* 전체메뉴 */
 .all-menu-area {
   position: absolute;
   left: 0;
@@ -210,7 +210,6 @@
   display: inline-block;
   height: 43px;
   width: 100px;
-  background-color: aquamarine;
 }
 .all-menu {
   position: absolute;
@@ -409,6 +408,7 @@
   background-color: transparent;
   line-height: 19px;
 }
+
 .join-bt:hover {
   color: #76bd42;
 }
@@ -464,7 +464,7 @@
 }
 .join-list > li > a:hover,
 .more-menu-list > li > a:hover {
-  font-weight: 600;
+  font-weight: 700;
   color: #000;
   border-bottom: 2px solid #000;
 }
@@ -495,6 +495,8 @@
   margin-left: 3px;
   vertical-align: 2px;
 }
+/* ======================더보기 active */
+
 .more-menu-bt.active > span {
   visibility: hidden;
 }
@@ -517,7 +519,8 @@
 .more-menu-bt.active .more-menu-icon {
   background-position: 0 -6px;
 }
-/* =================================== 더보기 active */
+/* ======================더보기 active */
+
 .header-main-right {
   position: relative;
   display: block;
@@ -549,7 +552,7 @@
   color: #000;
 }
 
-.search-bt{
+.search-bt {
   position: absolute;
   right: 20px;
   top: 50%;
@@ -563,7 +566,7 @@
   border: 0;
 }
 
-.bucket{
+.bucket {
   position: relative;
   display: block;
   width: 30px;
@@ -574,7 +577,7 @@
   margin-left: 25px;
 }
 
-.bucket-count{
+.bucket-count {
   position: absolute;
   right: -4px;
   top: -1px;

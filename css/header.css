@@ -230,7 +230,8 @@
 }
 .all-menu.active {
   width: 420px;
-}
+}/* 전체 메뉴가 숨겨질 때 */
+
 .all-menu-cate {
   position: relative;
   display: block;

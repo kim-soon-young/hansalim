@@ -88,18 +88,24 @@ window.addEventListener("load", function () {
   listToggle(centerBt, centerList);
   // toggleListArr[2] = centerList
   // ====================================================
-  // 전체메뉴 펼침 기능
-  const allMenuArea = this.document.querySelector(".all-menu-area");
-  const allMenu = this.document.querySelector(".all-menu");
-  const cateList = this.document.querySelector(".all-menu-cate");
+  // 전체 메뉴 펼침 기능
+  const allMenuArea = document.querySelector(".all-menu-area");
+  const allMenu = document.querySelector(".all-menu");
+  const cateList = document.querySelector(".cate-list");
+  // ul인 cate-list로 선언하니 스크롤 부분에 커서올리면 메뉴 사라짐.
+  const cateListWrap = document.querySelector(".all-menu-cate-wrap");
   const deliList = this.document.querySelector(".deli-list");
   const themeList = this.document.querySelector(".theme-list");
-  // ul 인 cate-list로 선언하니 스크롤 부분에 커서올리면 메뉴가 사라짐
-  const cateListWrap = this.document.querySelector(".all-menu-cate-wrap");
+  let isMenuOpen = false;
   cateList.addEventListener("mouseleave", function () {
-    allMenu.classList.remove("active"); //기능되기 전 가림
+    if (!isMenuOpen) {
+      allMenu.classList.remove("active"); // 기능되기 전 가림.
+    }
   });
   cateList.addEventListener("mouseenter", function () {
+    allMenu.classList.add("active");
+  });
+  cateListWrap.addEventListener("mouseenter", function () {
     allMenu.classList.add("active");
   });
   deliList.addEventListener("mouseenter", function () {
@@ -107,9 +113,6 @@ window.addEventListener("load", function () {
   });
   themeList.addEventListener("mouseenter", function () {
     allMenu.classList.remove("active");
-  });
-  cateListWrap.addEventListener("mouseenter", function () {
-    allMenu.classList.add("active");
   });
   // 서브 카테고리 보여주기 기능
   const cateLists = this.document.querySelectorAll(".cate-list > li");
@@ -126,7 +129,6 @@ window.addEventListener("load", function () {
       });
     });
   });
- 
 
   // =88888888888888888888888888888888888
 });

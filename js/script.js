@@ -356,6 +356,54 @@ ${priceToString(item.price)}<em>원</em>
         const spanTag = this.querySelector(".popular-cate-icon");
         spanTag.style.backgroundPositionY = "0";
       });
+      // 아이콘에 클릭하면 버튼 (.popular-more)의 글자를
+      // 클릭된 타이틀의 글자로 변경
+      // console.log(item);
+      item.addEventListener("click", function (event) {
+        event.preventDefault();
+        const bt = document.querySelector(".popular-more");
+        const title = this.querySelector(".popular-cate-name");
+        // console.log(title);
+        bt.innerHTML = `${title.innerHTML} 물품 더보기`;
+        // 클릭된 아이콘에 테두리 제거
+        tag.forEach(function (item) {
+          item.style.border = "none";
+        });
+        this.style.backgroundColor = "#fff";
+        this.style.border = "2px solid #76bd42";
+
+        //  아이콘을 클릭했을때 해당 목록이 보여지는 코드
+        popularShow = index; //위에 선언한 1이 index 임을 선언.
+        showPopularGood();
+      });
+    });
+  }
+  // 인기물품 목록 화면출력
+  function showPopularGood() {
+    let html = "";
+    let popCate = "populargood-" + (popularShow + 1); //인덱스 번호에 계속 +1을 함
+    // console.log(POPULAR_GOOD[popCate]);
+    POPULAR_GOOD[popCate].forEach(function (item) {
+      // 여러개이므로 foreach
+      let tag = `
+<div class="good-box">
+<!-- 제품이미지 -->
+<a href="${item.link}" class="good-img">
+    <img src="images/${item.pic}" alt="${item.name}" />
+    <span class="good-type">${item.tag}</span>
+</a>
+<!-- 제품정보 -->
+<a href="${item.link}" class="good-info">
+    <em>${item.name}</em>(<em>${item.unit}</em>)
+</a>
+<!-- 제품가격 -->
+<a href="${item.link}" class="good-info-price">${priceToString(item.price)}<em>원</em></a>
+<!-- 장바구니 -->
+<button class="good-add-cart"></button>
+</div>
+`;
+      html += tag;
+      popularGoodTag.innerHTML = html;
     });
   }
   //  888888888888888888888888888888888888888888888888888

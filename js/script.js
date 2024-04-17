@@ -23,6 +23,9 @@ window.addEventListener("load", function () {
       RECOMMEND_GOOD = obj.recommendgood;
       POPULAR_ICON = obj.popularicon;
       POPULAR_GOOD = obj.populargood;
+      BRAND_ARR = obj.brandarr;
+      BANNER_ARR = obj.bannerarr;
+      SEASON_GOOD = obj.seasongood;
       showVisual(); //비주얼을 화면에 배치
       showTodayGood(); //오늘의 물품을 화면에 배치
       showSaleGood(); //알뜰 물품을 화면에 배치
@@ -30,6 +33,9 @@ window.addEventListener("load", function () {
       showRecommendGood(); //추천 물품을 화면에 배치
       showPopularIcon(); //인기 물품 아이콘을 화면에 배치
       showPopularGood(); //인기 물품목록을 화면에 배치
+      showBrandArr(); //브랜드관을 화면에 배치
+      showBannerArr(); //배너를 화면에 배치
+      showSeasonGood(); //제철요리를 화면에 배치
     }
   };
   //   자료 호출한다.
@@ -60,6 +66,15 @@ window.addEventListener("load", function () {
   let POPULAR_GOOD;
   let popularShow = 1; //목록 중에 먼저 1번을 보여줌
   let popularGoodTag = this.document.getElementById("data-popular");
+  // 브랜드관
+  let BRAND_ARR;
+  let brandTag = this.document.getElementById("data-brand");
+  // 배너
+  let BANNER_ARR;
+  let bannerTag = this.document.getElementById("data-banner");
+  // 제철요리
+  let SEASON_GOOD;
+  let seasonTag = this.document.getElementById("data-season");
   // 비주얼 화면 출력 기능
   function showVisual() {
     let html = "";
@@ -345,8 +360,10 @@ ${priceToString(item.price)}<em>원</em>
       },
     });
     const tag = document.querySelectorAll(".popular-slide a");
+
     tag.forEach(function (item, index) {
       // console.log(index,item);
+
       // 호버했을때 이미지 변경
       item.addEventListener("mouseover", function () {
         const spanTag = this.querySelector(".popular-cate-icon");
@@ -359,8 +376,10 @@ ${priceToString(item.price)}<em>원</em>
       // 아이콘에 클릭하면 버튼 (.popular-more)의 글자를
       // 클릭된 타이틀의 글자로 변경
       // console.log(item);
+
       item.addEventListener("click", function (event) {
         event.preventDefault();
+
         const bt = document.querySelector(".popular-more");
         const title = this.querySelector(".popular-cate-name");
         // console.log(title);
@@ -373,7 +392,8 @@ ${priceToString(item.price)}<em>원</em>
         this.style.border = "2px solid #76bd42";
 
         //  아이콘을 클릭했을때 해당 목록이 보여지는 코드
-        popularShow = index; //위에 선언한 1이 index 임을 선언.
+        popularShow = index;
+        //위에 선언한 1이 index 임을 선언.
         showPopularGood();
       });
     });
@@ -405,6 +425,186 @@ ${priceToString(item.price)}<em>원</em>
       html += tag;
       popularGoodTag.innerHTML = html;
     });
+  }
+  // 브랜드관 화면출력
+  function showBrandArr() {
+    let html = `
+      <div class="swiper sw-brand">
+      <div class="swiper-wrapper">
+      `;
+    BRAND_ARR.forEach(function (item) {
+      let tag = `
+          <div class="swiper-slide">
+              <div class="brand-box">
+                  <a href="${item.link}">
+                      <img src="images/${item.pic}" alt="${item.name}"/>
+                      <p>${item.name}</p>
+                      <ul class="brand-info clearfix">
+                          <li>
+                              <span class="brand-info-title">${item.title1}</span>
+                              <span class="brand-info-value">${item.value1}</span>
+                          </li>
+                          <li>
+                              <span class="brand-info-title">${item.title2}</span>
+                              <span class="brand-info-value">${item.value2}</span>
+                          </li>
+                      </ul>
+                  </a>
+              </div>
+          </div>
+          `;
+      html += tag;
+    });
+    html += `
+      </div>
+      </div>
+      `;
+    brandTag.innerHTML = html;
+    const swBrand = new Swiper(".sw-brand", {
+      slidesPerView: 3, // 보여지는 슬라이드 개수
+      spaceBetween: 16, // 슬라이드 간의 간격
+      slidesPerGroup: 1, // 넘어가는 슬라이드 개수
+      navigation: {
+        prevEl: ".brand .slide-prev",
+        nextEl: ".brand .slide-next",
+      },
+      pagination: {
+        el: ".brand .slide-pg",
+        type: "fraction",
+      },
+    });
+  }
+  // 배너 화면출력
+  function showBannerArr() {
+    let html = `
+  <div class = "swiper sw-banner">
+  <div class = "swiper-wrapper">
+  `;
+    BANNER_ARR.forEach(function (item) {
+      let tag = `
+<div class="swiper-slide">
+            <a href="${item.link}">
+                <img src = "images/${item.image}" alt ="${item.title}"/>
+            </a>
+        </div>
+`;
+      html += tag;
+    });
+
+    html += `
+  </div>
+  </div>
+  `;
+    bannerTag.innerHTML = html;
+    const swBanner = new Swiper(".sw-banner", {
+      loop: true,
+      autoplay: {
+        delay: 2500,
+      },
+      slidesPerView: 2,
+      spaceBetween: 0,
+      navigation: {
+        prevEl: ".banner .slide-prev",
+        nextEl: ".banner .slide-next",
+      },
+    });
+  }
+  // 제철요리 화면 출력
+  function showSeasonGood(item, index) {
+    let html = "";
+    SEASON_GOOD.forEach(function (item, index) {
+      const tag = `
+<li>
+<div class="season-good clearfix">
+    <input
+        type="checkbox"
+        id="ch${index}"
+        class="season-good-check season-item"
+        value="${item.price}"
+     
+    />
+    <label for="ch${index}" class="season-label"></label>
+    <a href="${item.link}" class="season-good-img">
+        <img src="images/${item.pic}" alt="${item.title}"/>
+    </a>
+    <p class= "season-good-info">
+        <a href="${item.link}" class="season-good-title">${item.title}</a>
+        <a href="${item.link}" class="season-good-price">
+            <em>${priceToString(item.price)}</em>원
+        </a>
+    </p>
+</div>
+</li>
+
+`;
+      html += tag;
+    });
+    seasonTag.innerHTML = html;
+
+    Scrollbar.initAll(); // smooth scrollbar 적용
+    checkBoxFn();
+    showBuyGood();
+  }
+  // 제철요리목록 전체 체크박스 기능
+  const buyTotal = this.document.getElementById("buy-total"); //총 갯수
+  const buyTotalMoney = this.document.getElementById("buy-total-money");
+  let buyTotalCount = 0; // 기본값
+  let buyTotalMoneyPrice = 0; //기본값
+  // 전체 체크박스 기능
+  const chkAll = this.document.getElementById("chkall");
+  chkAll.addEventListener("change", function () {
+    const chkArr = document.querySelectorAll(".season-item");
+    if (chkAll.checked) {
+      // 전체 체크를 해야 하는 경우
+      chkArr.forEach(function (item) {
+        item.checked = true;
+      });
+    } else {
+      // 전체 체크를 해제해야 하는 경우
+      chkArr.forEach(function (item) {
+        item.checked = false;
+      });
+    }
+    showBuyGood();
+  });
+  //체크박스 가각의 기능
+  function checkBoxFn() {
+    const chkArr = document.querySelectorAll(".season-item");
+    chkArr.forEach(function (item) {
+      item.addEventListener("change", function () {
+        // 가격을 다시 계산한다
+        showBuyGood();
+      });
+    });
+  }
+  // 계산출력하는 기능 함수
+  function showBuyGood() {
+    // 체크가 된 값을 카운팅하고 더한다.
+    let count = 0; //체크된 상품의 수를 저장할 변수
+    let priceTotal = 0; // 체크된 상품들의 총 가격을 저장할 변수
+    // 모든 체크박스 요소를 가져와서 배열레 저장
+    const chkArr = document.querySelectorAll(".season-item");
+    chkArr.forEach(function (item) {
+      const state = item.checked; //현재 체크박스이 체크상태를 확인
+      // console.log(state);
+      if (state) {
+        //체크가 되어있다면
+        count += 1; //체크된 상품의 수를 증가 count++
+        const price = parseInt(item.value); //체크된 상품의 가격을 정수로 변화하여 가져옴
+        priceTotal += price;
+      }
+    });
+    buyTotalCount = count; //체크된 상품의 수를 전역변수에 저장
+    buyTotalMoneyPrice = priceTotal; //총가격을 전역변수에 저장
+    buyTotal.innerHTML = buyTotalCount;
+    buyTotalMoney.innerHTML = priceToString(buyTotalMoneyPrice);
+    // 전체 선택 버튼 해제
+    if (buyTotalCount === chkArr.length) {
+      //모든 상품의 체크가 되었다면
+      chkAll.checked = true; //전체 선택 버튼도 체크 상태로 변경
+    } else {
+      chkAll.checked = false; //전체 선택 버튼도 해제 상태로 변경
+    }
   }
   //  888888888888888888888888888888888888888888888888888
 });

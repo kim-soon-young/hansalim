@@ -62,7 +62,7 @@ body {
   padding-top: 128px;
   transition: padding-top 0.2s;
 }
-.all-menu-cate::-webkit-scrollbar{
+/* .all-menu-cate::-webkit-scrollbar{
     width: 10px;
 }
 
@@ -75,7 +75,7 @@ body {
 
 .all-menu-cate::-webkit-scrollbar-track{
     background-color: transparent;
-}
+} */
 /* section 공동 페이아웃 */
 .wrap > section {
   padding: 80px 0;
